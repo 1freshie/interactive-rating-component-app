@@ -1,6 +1,8 @@
+import { useState } from 'react';
+
+import Sec from './Sec';
 import './App.css';
 import starSVG from './images/icon-star.svg';
-import thankyouSVG from './images/illustration-thank-you.svg';
 
 //  <!-- Rating state start -->
 
@@ -27,29 +29,76 @@ import thankyouSVG from './images/illustration-thank-you.svg';
 //   <!-- Thank you state end -->
 
 const App: React.FunctionComponent = () => {
+  const [number, setNumber] = useState<number>(0);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const selectNumberHandler = (selectedNumber: number) => {
+    setNumber(selectedNumber);
+  };
+
+  const ratingSubmissionHandler = () => {
+    setIsSubmitted(true);
+  };
+
   return (
-    <div className="App">
-      <div className="star">
-        <img src={starSVG} alt="star icon" />
-      </div>
+    <>
+      {!isSubmitted ? (
+        <div className="App">
+          <div className="star">
+            <img src={starSVG} alt="star icon" />
+          </div>
 
-      <div className="rating-state">
-        <h1>How did we do?</h1>
-        <p>
-          Please let us know how we did with your support request. All feedback
-          is appreciated to help us improve our offering!
-        </p>
+          <div className="rating-state">
+            <h1>How did we do?</h1>
+            <p>
+              Please let us know how we did with your support request. All
+              feedback is appreciated to help us improve our offering!
+            </p>
 
-        <div className="rating__numbers">
-          <div className="number">1</div>
-          <div className="number">2</div>
-          <div className="number">3</div>
-          <div className="number">4</div>
-          <div className="number">5</div>
+            <div className="rating__numbers">
+              <div
+                className="number"
+                tabIndex={1}
+                onClick={() => selectNumberHandler(1)}
+              >
+                1
+              </div>
+              <div
+                className="number"
+                tabIndex={1}
+                onClick={() => selectNumberHandler(2)}
+              >
+                2
+              </div>
+              <div
+                className="number"
+                tabIndex={1}
+                onClick={() => selectNumberHandler(3)}
+              >
+                3
+              </div>
+              <div
+                className="number"
+                tabIndex={1}
+                onClick={() => selectNumberHandler(4)}
+              >
+                4
+              </div>
+              <div
+                className="number"
+                tabIndex={1}
+                onClick={() => selectNumberHandler(5)}
+              >
+                5
+              </div>
+            </div>
+          </div>
+          <button onClick={ratingSubmissionHandler}>SUBMIT</button>
         </div>
-      </div>
-      <button>SUBMIT</button>
-    </div>
+      ) : (
+        <Sec number={number} />
+      )}
+    </>
   );
 };
 
